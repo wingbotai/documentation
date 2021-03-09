@@ -1,2 +1,0 @@
-# documentation
-Wingbot public documentation
