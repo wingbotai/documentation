@@ -1,0 +1,84 @@
+import Layout, { DocuLayout } from '../components/Layout';
+export default DocuLayout
+
+
+# How to connect Wingbot Webchat to any website
+
+
+## Basic setup
+
+On the example below you can see the minimal setup for connecting the Wingbot webchat to a website.
+
+```html
+<link href="https://orchestrator.wingbot.ai/styles/wingbotRounded.css" rel='stylesheet' type='text/css'>
+<div id="chat"></div>
+<script>
+    window.wingbotChatCmds=window.wingbotChatCmds||[];
+    window.wingbotChat=window.wingbotChat||function(){wingbotChatCmds.push(arguments)}
+
+    wingbotChat('init', {
+        pageId: 'd42aab72-e7bf-4d5e-b5ab-0e176ae09ed5'
+    }, document.getElementById('chat'));
+</script>
+<script async src="https://orchestrator.wingbot.ai/wingbotChat.js"></script>
+```
+
+<br />
+<br />
+
+##### We can split this example code to the 4 main parts:
+
+- **CSS styles**
+    - link with the basic webchat theme, working out of the box
+    - feel free to create your own and replace it
+- **Physical representation**
+    - `<div id="chat"></div>` is physical representation of the webchat
+    - it can be placed anywhere in your website
+- **Webchat configuration**
+    - this part is mostly for configuration the webchat configuration
+    - `pageId` is mandatory and unique, if you don't know your `pageId` feel free to contact Wingbot support
+    - `document.getElementById` can be set to any existing element in the website
+- **Source to the webchat code**
+    - the last line of the example is link to the actual webchat app
+    - please do not download it and/or cache it somewhere in your infrastructure if you want to have the latest and the most secure version of Wingbot webchat
+
+
+## Dig more deeply into the configuration
+
+As we saw in the example above, webchat is configurable with 3 parameters.
+
+Lets have a look little bit deeply about the configuration right now:
+
+### Webchat commands and parameters:
+
+
+```Javascript
+webchat (
+    'init',    // this parameter will be always `'init'`
+    element,   // is for the DOM element which is representation of the chat on the page
+    config     // object with webchat configurations
+    )
+
+```
+<br />
+<br />
+
+There are supported parameters for the config object:
+
+
+| Parameter |  Default value | Description | Example |
+|:-----------|------------|-------------|---------|
+|`pageId`|**required**|Identifier of page|`'134271f0-1d1c-42a3-9191-6288fd1a263b'`|
+|`api`|`null`|Override an API URL of widget||
+|`websocket`|`null`|Override an websocket URL of the widget||
+|`token`|`null`|||
+|`refreshInterval`|`15000`|Interval in miliseconds to refresh the credentials||
+|`resetOnClose`|`false`|||
+|`startAction`|`start`|Used to send a non-visual chat event for start the conversation||
+|`lang`|`null`|||
+|`fallbackLang`|`'en'`|||
+|`MockWs`|`undefined`|||
+|`reduxEnhancer`|`null`|||
+|`onInit`|`() => {}`|||
+|`headerText`|`null`|||
+|`context`|`{}`|||
