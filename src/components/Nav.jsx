@@ -10,7 +10,11 @@ export default () => (
 	</Link>
 
 	<Link to="/orchestrator">
-		Orchestrator
+		Web Chat
+	</Link>
+	&nbsp;|&nbsp;
+	<Link to="/events">
+		Messaging events
 	</Link>
 	</div>
 </nav>
