@@ -5,7 +5,7 @@ export default DocuLayout
 # How to connect Wingbot Webchat to any website
 
 
-## Basic setup
+## Basic setupnpm
 
 On the example below you can see the minimal setup for connecting the Wingbot webchat to a website.
 
@@ -80,3 +80,6 @@ There are supported parameters for the config object:
 |`onInit`|`() => {}`|Will be called when chat has been successfuly initialized||
 |`headerText`|`null`|Set a static text to be used as a header||
 |`context`|`{}`|Thread context variables - will be pushed to the bot||
+|`uploadEnabled`|`false`|On/off for a file upload (boolean)|
+|`uploadSizeLimit`|`1048576 * 6`|Hard limit for the file upload, bigger file cannot be uploaded|
+|`uploadSoftLimitForResize`|`1048576 * 2.5`|Soft limit for the file upload, bigger file will be shrunk, `0` means no shrinking|
