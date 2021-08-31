@@ -9,8 +9,12 @@ export default () => (
 		<img className="logo" src={wingbotLogo} />
 	</Link>
 
-	<Link to="/orchestrator">
+	<Link to="/chat">
 		Web Chat
+	</Link>
+	&nbsp;|&nbsp;
+	<Link to="/orchestrator">
+		Orchestrator
 	</Link>
 	&nbsp;|&nbsp;
 	<Link to="/events">

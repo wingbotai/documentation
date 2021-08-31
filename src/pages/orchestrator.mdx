@@ -2,84 +2,94 @@ import Layout, { DocuLayout } from '../components/Layout';
 export default DocuLayout
 
 
-# How to connect Wingbot Webchat to any website
+# Orchestrator configuration
 
+## Environmental variables at Docker
 
-## Basic setupnpm
+### Application configuration
 
-On the example below you can see the minimal setup for connecting the Wingbot webchat to a website.
+| ENV Variable | Default value | Type | Description | Note/Example |
+|:-------------|---------------|------|-------------|--------------|
+|`PAGE_URL`|**required**|string|Deployment url without training slash|`https://foo.bar.com`|
+|`COOKIE_DOMAIN`|**required**|string|Domain to set cookies||
+|`MONGODB_CONNECTION_STRING`|**required** when using MongoDB|string|DB connection string||
+|`MONGODB_DB`|*extracted from connection string*|Override MongoDB database name||
+|`COSMOSDB_CONNECTION_STRING`|**required** when using CosmosDB|string|DB connection string||
+|`COSMOSDB_DB`|**required** when using CosmosDB|string|DB database name||
+|`HSTS_MAX_AGE`|`2592000`|number|Max age header for HSTS||
+|`X_FRAME_OPTIONS`|`DENY`|string|Allow using chat from an iframe|`SAMEORIGIN`|
+|`SENTRY_BACKEND_DSN`||string|Sentry DSN to report exceptions on backend||
+|`SENTRY_FRONTEND_DSN`||string|Sentry DSN to report exceptions on frontend||
+|`VERBOSE_REQUEST_LOG`|`false`|boolean|Enables logging of request contents and responses|*has performance impacts*|
+|`HIDE_VERBOSE_ERRORS`|`true`|string|Replaces user friendly error responses with generic "API Error" message|*stack traces are always hidden*|
+|`JSON_CONFIGURATION`|`{}`|string|Static orchestrator configuration JSON|*described below*|
 
-```html
-<link href="https://orchestrator.wingbot.ai/styles/wingbotChat.css" rel='stylesheet' type='text/css'>
-<div id="chat"></div>
-<script>
-    window.wingbotChatCmds=window.wingbotChatCmds||[];
-    window.wingbotChat=window.wingbotChat||function(){wingbotChatCmds.push(arguments)}
+### Default orchestrator configuration
 
-    wingbotChat('init', {
-        pageId: '<put your page-id here>'
-    }, document.getElementById('chat'));
-</script>
-<script async src="https://orchestrator.wingbot.ai/wingbotChat.js"></script>
+Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
+
+```json
+{
+    "pages": [
+        { "id": "web", "primaryAppId": "bot" }
+    ],
+    "apps": [
+        { "id": "bot" }
+    ],
+    "appToPage": [
+        { "appId": "bot", "pageId": "web" }
+    ]
+}
 ```
 
-<br />
-<br />
+### Page Configuration
 
-##### We can split this example code to the 4 main parts:
-
-- **CSS styles**
-    - link with the basic webchat theme, working out of the box
-    - feel free to create your own and replace it
-- **Physical representation**
-    - `<div id="chat"></div>` is physical representation of the webchat
-    - it can be placed anywhere in your website
-- **Webchat configuration**
-    - this part is mostly for configuration the webchat configuration
-    - `pageId` is mandatory and unique, if you don't know your `pageId` feel free to contact Wingbot support
-    - `document.getElementById` can be set to any existing element in the website
-- **Source to the webchat code**
-    - the last line of the example is link to the actual webchat app
-    - please do not download it and/or cache it somewhere in your infrastructure if you want to have the latest and the most secure version of Wingbot webchat
+**Common options**
 
 
-## Dig more deeply into the configuration
+| ENV Variable | Default value | Type | Description | Configuration property | Note/Example |
+|:-------------|---------------|------|-------------|------------------------|--------------|
+|`PAGE_{page.id}_PRIMARY_APP_ID`||string|Default application to dispatch a thread|`primaryAppId`||
+|`PAGE_{page.id}_CHANNEL_NAME`|`wbaichat`|string|Channel type|`channelName`|`wbaichat`, `botservice`, `facebook`, `api`, `vocalls`|
+|`PAGE_{page.id}_CLIENT_ID`||string|Client identification, when the channel is connected behind messaging service|`clientId`||
+|`PAGE_{page.id}_CLIENT_SECRET`||string|Client secret, when the channel is connected behind messaging service|`clientSecret`||
+|`PAGE_{page.id}_START_ACTION_PAYLOAD`||string|Postback payload|`startActionPayload`|*supported by botservice, and vocalls*|
+|`PAGE_{page.id}_LOAD_USER_TO_CONTEXT_PROP`||string|If chanel provides user data, it's loaded into this prop|`loadUserToContextProp`|*supported by botservice, and vocalls*|
 
-As we saw in the example above, webchat is configurable with 3 parameters.
+**Web chat options**
 
-Lets have a look little bit deeply about the configuration right now:
+| ENV Variable | Default value | Type | Description | Configuration property | Note/Example |
+|:-------------|---------------|------|-------------|------------------------|--------------|
+|`PAGE_{page.id}_ALLOW_DOMAINS`|`null`|string|Default application to dispatch a thread|`allowDomains`|`"wingbot.ai, skoda-auto.cz"`|
+|`PAGE_{page.id}_ALLOW_WEAK_AUTH`|`true`|boolean|Disables server-side cookie check|`allowWeakAuth`||
+|`PAGE_{page.id}_SESSION_EXPIRATION_SECONDS`|`7 * 24 * 3600`|number|Sets expiration of frontend token, so it resets the conversation then.|`sessionExpirationSeconds`||
+|`PAGE_{page.id}_PUBLIC_CONTEXT_PROPS`||string|List of thread context variables published to frontend|`publicContextProps`|`"foo, bar"`|
+|`PAGE_{page.id}_RESET_ON_CONTEXT_CHANGE_PROPS`||string|When contents of any provided variable changes, the chat will start over. (`null|undefined` to *any* is not a change)|`resetOnContextChangeProps`||
+|`PAGE_{page.id}_OAUTH_CLIENT_ID`||string|OAuth client ID|`oauth.clientId`||
+|`PAGE_{page.id}_OAUTH_CLIENT_SECRET`||string|OAuth client secret|`oauth.clientSecret`||
+|`PAGE_{page.id}_OAUTH_AUTHORIZATION_ENDPOINT`||string|OAuth client authorization endpoint|`oauth.authorizationEndpoint`||
+|`PAGE_{page.id}_OAUTH_TOKEN_ENDPOINT`||string|OAuth token endpoint|`oauth.tokenEndpoint`||
+|`PAGE_{page.id}_OAUTH_SCOPE`|`openid`|string|OAuth requested scope|`oauth.scope`||
+|`PAGE_{page.id}_OAUTH_RESPONSE_TYPE`|`code`|string|OAuth requested scope|`oauth.responseType`||
+|`PAGE_{page.id}_OAUTH_STORE_USER_ID_AT_CONTEXT_PROP`||string|OAuth - stores user ID after successful authorization at a thread context variable|`oauth.storeUserIdAtContextProp`||
+|`PAGE_{page.id}_OAUTH_STORE_AUTH_RESULT_AT_CONTEXT_PROP`||string|OAuth - stores contents of ID token at a thread context variable|`oauth.storeAuthResultAtContextProp`||
+|`PAGE_{page.id}_OAUTH_BIND_THREAD_TO_SUBJECT`||boolean|OAuth - each user ID will have a single conversation|`oauth.bindThreadToSubject`||
 
-### Webchat commands and parameters:
+### App Configuration
+
+**Common options**
 
 
-```Javascript
-webchat (
-    'init',    // `'init'` command should be always called to start a chat
-    element,   // is for the DOM element which is representation of the chat on the page
-    config     // object with webchat configurations
-);
-
-```
-<br />
-<br />
-
-There are supported parameters for the config object:
-
-
-| Parameter |  Default value | Description | Example |
-|:-----------|------------|-------------|---------|
-|`pageId`|**required**|Identifier of page|`'134271f0-1d1c-42a3-9191-6288fd1a263b'`|
-|`api`|`null`|Override an API URL of orchestrator (on-premise solutions only)||
-|`websocket`|`null`|Override an websocket URL of the widget (on-premise solutions only)||
-|`token`|`null`|Conversation token to continue in already existing conversation||
-|`refreshInterval`|`15000`|Interval in miliseconds to refresh the credentials||
-|`startAction`|`start`|Postback payload to send a non-visual chat event for start the conversation||
-|`lang`|`null`|Force the widget to use specified language||
-|`fallbackLang`|`'en'`|Use this language if it cannot be detected automatically||
-|`reduxEnhancer`|`null`|Redux plugin to be used within chat||
-|`onInit`|`() => {}`|Will be called when chat has been successfuly initialized||
-|`headerText`|`null`|Set a static text to be used as a header||
-|`context`|`{}`|Thread context variables - will be pushed to the bot||
-|`uploadEnabled`|`false`|On/off for a file upload (boolean)|
-|`uploadSizeLimit`|`1048576 * 6`|Hard limit for the file upload, bigger file cannot be uploaded|
-|`uploadSoftLimitForResize`|`1048576 * 2.5`|Soft limit for the file upload, bigger file will be shrunk, `0` means no shrinking|
+| ENV Variable | Default value | Type | Description | Configuration property | Note/Example |
+|:-------------|---------------|------|-------------|------------------------|--------------|
+|`APP_{app.id}_CHANNEL_NAME`|`api`|string|Channel type|`channelName`|`api`|
+|`APP_{app.id}_OPTIONS_URL`|**required**|string|Chatbot application endpoint address|`options.url`||
+|`APP_{app.id}_OPTIONS_SECRET`|**required**|string|Chatbot application secret|`options.secret`||
+|`APP_{app.id}_SUBSCRIPTIONS_MESSAGES`|`true`|boolean|Send messages to application's webhook|`subscriptions.messages`||
+|`APP_{app.id}_SUBSCRIPTIONS_POSTBACKS`|`true`|boolean|Send postbacks to application's webhook|`subscriptions.postbacks`||
+|`APP_{app.id}_SUBSCRIPTIONS_HANDOVERS`|`true`|boolean|Send handovers to application's webhook|`subscriptions.handovers`||
+|`APP_{app.id}_SUBSCRIPTIONS_CONTEXT_UPDATES`|`true`|boolean|Send thread context updates to application's webhook|`subscriptions.contextUpdates`||
+|`APP_{app.id}_SUBSCRIPTIONS_SENDER_ACTIONS`|`false`|boolean|Send sender actions to application's webhook|`subscriptions.senderActions`||
+|`APP_{app.id}_SUBSCRIPTIONS_STANDBY_INCOMING`|`false`|boolean|Send all communication from channel to application's webhook|`subscriptions.standbyIncoming`|*when the application is not a thread owner*|
+|`APP_{app.id}_SUBSCRIPTIONS_SENDER_ACTIONS`|`false`|boolean|Send all communication from other applications to application's webhook|`subscriptions.standbyOutgoing`|*when the application is not a thread owner*|
+|`APP_{app.id}_SUBSCRIPTIONS_SENDER_ACTIONS`|`false`|boolean|Send tracking events to application's webhook|`subscriptions.tracking`||
