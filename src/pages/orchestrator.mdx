@@ -46,6 +46,8 @@ Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
 
 ### Page Configuration
 
+> names of pages are transformed according to following example: `fooBar--name0` to `FOO_BAR_NAME0` (camel case to snake case except numbers, all foreign characters to single underscores)
+
 **Common options**
 
 
@@ -66,7 +68,7 @@ Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
 |`PAGE_{page.id}_ALLOW_WEAK_AUTH`|`true`|boolean|Disables server-side cookie check|`allowWeakAuth`||
 |`PAGE_{page.id}_SESSION_EXPIRATION_SECONDS`|`7 * 24 * 3600`|number|Sets expiration of frontend token, so it resets the conversation then.|`sessionExpirationSeconds`||
 |`PAGE_{page.id}_PUBLIC_CONTEXT_PROPS`||string|List of thread context variables published to frontend|`publicContextProps`|`"foo, bar"`|
-|`PAGE_{page.id}_RESET_ON_CONTEXT_CHANGE_PROPS`||string|When contents of any provided variable changes, the chat will start over. (`null|undefined` to *any* is not a change)|`resetOnContextChangeProps`||
+|`PAGE_{page.id}_RESET_ON_CONTEXT_CHANGE_PROPS`||string|When contents of any provided variable changes, the chat will start over. (`null` or `undefined` to *any* is not a change)|`resetOnContextChangeProps`||
 |`PAGE_{page.id}_OAUTH_CLIENT_ID`||string|OAuth client ID|`oauth.clientId`||
 |`PAGE_{page.id}_OAUTH_CLIENT_SECRET`||string|OAuth client secret|`oauth.clientSecret`||
 |`PAGE_{page.id}_OAUTH_AUTHORIZATION_ENDPOINT`||string|OAuth client authorization endpoint|`oauth.authorizationEndpoint`||
@@ -79,8 +81,7 @@ Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
 
 ### App Configuration
 
-**Common options**
-
+> names of pages are transformed according to following example: `fooBar--name0` to `FOO_BAR_NAME0` (camel case to snake case except numbers, all foreign characters to single underscores)
 
 | ENV Variable | Default value | Type | Description | Configuration property | Note/Example |
 |:-------------|---------------|------|-------------|------------------------|--------------|
