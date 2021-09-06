@@ -61,5 +61,13 @@ module.exports = {
       },
       __key: "pages",
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "api",
+        path: "./src/pages/api",
+      },
+      __key: "api",
+    },
   ],
 };

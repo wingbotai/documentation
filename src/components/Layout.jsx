@@ -1,34 +1,37 @@
 import React from 'react';
 import '../styles/global.scss';
 import Nav from './Nav';
+import Sidebar from './Sidebar'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
 // import Footer from './Footer';
 
 
-export default function Layout ({ children }) {
+export default function Layout({ children }) {
     return (
         <>
-            <div className="columns">
-                <div className="column is-full">
-                    <Nav className="navigation" />
+            <div className='content-and-sidebar-parent'>
+                <Sidebar />
+                <div className="content">
+                    <div className="columns">
+                        <div className="column is-full">
+                            {children}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="columns">
                 <div className="column is-full">
-                        { children }
-                </div>
-            </div>
-            <div className="columns">
-                <div className="column is-full">
+
                     {/* <Footer className="footer" /> */}
                 </div>
             </div>
+
         </>
 
     );
 }
 
-export function DocuLayout ({ children }) {
+export function DocuLayout({ children }) {
 
     deckDeckGoHighlightElement();
     return (
@@ -36,7 +39,7 @@ export function DocuLayout ({ children }) {
             <div className="columns">
                 <div className="column is-10 is-offset-1">
                     <div className="content">
-                        { children }
+                        {children}
                     </div>
                 </div>
             </div>

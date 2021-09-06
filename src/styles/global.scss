@@ -3,7 +3,7 @@
 
 
 h1, h2, h3, h4, h5, strong, b {
-    // font-family: Rubik,Arial,Helvetica,sans-serif;
+    //font-family: Rubik,Arial,Helvetica,sans-serif;
 }
 
 .has-cs-bg {
@@ -139,3 +139,23 @@ body {
     // background: url('../images/cta.png') 95% 95% no-repeat;
     background-size: contain;
 }
+
+.content-and-sidebar-parent
+{
+    display: flex;
+}
+.sidebar{
+    flex:1;
+    background-color:#f0f0f0;
+    padding: 20px;
+}
+.content{
+    flex:5;
+    padding-top: 50px;
+}
+.item{
+    margin: 20px;
+    font-size: 1.2em;
+}
+
+
