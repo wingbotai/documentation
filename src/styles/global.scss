@@ -140,22 +140,13 @@ body {
     background-size: contain;
 }
 
-.content-and-sidebar-parent
-{
-    display: flex;
-}
 .sidebar{
-    flex:1;
     background-color:#f0f0f0;
     padding: 20px;
 }
-.content{
-    flex:5;
-    padding-top: 50px;
+.menu li{
+    list-style: none;
 }
-.item{
-    margin: 20px;
-    font-size: 1.2em;
-}
+
 
 

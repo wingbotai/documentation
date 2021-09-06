@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/global.scss';
+//import '../styles/global.scss';
 import Nav from './Nav';
 import Sidebar from './Sidebar'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
@@ -9,14 +9,14 @@ import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/
 export default function Layout({ children }) {
     return (
         <>
-            <div className='content-and-sidebar-parent'>
-                <Sidebar />
-                <div className="content">
-                    <div className="columns">
-                        <div className="column is-full">
-                            {children}
-                        </div>
+            <div className="columns">
+                <div className="column">
+                    <div className="content">
+                        <Sidebar />
                     </div>
+                </div>
+                <div className="column is-three-quarters">
+                    {children}
                 </div>
             </div>
             <div className="columns">
