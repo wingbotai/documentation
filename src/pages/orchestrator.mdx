@@ -88,6 +88,14 @@ Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
 |`APP_{app.id}_CHANNEL_NAME`|`api`|string|Channel type|`channelName`|`api`|
 |`APP_{app.id}_OPTIONS_URL`|**required**|string|Chatbot application endpoint address|`options.url`||
 |`APP_{app.id}_OPTIONS_SECRET`|**required**|string|Chatbot application secret|`options.secret`||
+|`APP_{app.id}_OPTIONS_TLS_KEY`||string|Use client certificate private key|`options.tls.key`||
+|`APP_{app.id}_OPTIONS_TLS_CERT`||string|Use client certificate|`options.tls.cert`||
+|`APP_{app.id}_OPTIONS_TLS_CA`||string|Verify client certificate with root certificate|`options.tls.ca`|pem format|
+|`APP_{app.id}_OPTIONS_TLS_FINGER_PRINT`||string|Verify client certificate finger print|`options.tls.fingerPrint`|comma separated|
+|`APP_{app.id}_OPTIONS_TLS_SUBJECT_CN`||string|Verify client certificate subject CN|`options.tls.subjectCN`|comma separated|
+|`APP_{app.id}_OPTIONS_TLS_SUBJECT_O`||string|Verify client certificate subject O|`options.tls.subjectO`|comma separated|
+|`APP_{app.id}_OPTIONS_TLS_ISSUER_CN`||string|Verify client certificate issuer CN|`options.tls.issuerCN`|comma separated|
+|`APP_{app.id}_OPTIONS_TLS_ISSUER_O`||string|Verify client certificate issyer O|`options.tls.issuerO`|comma separated|
 |`APP_{app.id}_SUBSCRIPTIONS_MESSAGES`|`true`|boolean|Send messages to application's webhook|`subscriptions.messages`||
 |`APP_{app.id}_SUBSCRIPTIONS_POSTBACKS`|`true`|boolean|Send postbacks to application's webhook|`subscriptions.postbacks`||
 |`APP_{app.id}_SUBSCRIPTIONS_HANDOVERS`|`true`|boolean|Send handovers to application's webhook|`subscriptions.handovers`||
