@@ -16,7 +16,9 @@ On the example below you can see the minimal setup for connecting the Wingbot we
     window.wingbotChat=window.wingbotChat||function(){wingbotChatCmds.push(arguments)}
 
     wingbotChat('init', {
-        pageId: '<put your page-id here>'
+        pageId: '<put your page-id here>',
+        contextUserAgentProp: 'ua',
+		contextScreenResolutionProp: 'sr'
     }, document.getElementById('chat'));
 </script>
 <script async src="https://orchestrator.wingbot.ai/wingbotChat.js"></script>
@@ -82,3 +84,5 @@ There are supported parameters for the config object:
 |`uploadEnabled`|`false`|On/off for a file upload (boolean)|
 |`uploadSizeLimit`|`1048576 * 6`|Hard limit for the file upload, bigger file cannot be uploaded|
 |`uploadSoftLimitForResize`|`1048576 * 2.5`|Soft limit for the file upload, bigger file will be shrunk, `0` means no shrinking|
+|`contextUserAgentProp`|null|Context prop to store user agent|`'ua'`|
+|`contextScreenResolutionProp`|null|Context prop to store screen resolution|`'sr'`|
