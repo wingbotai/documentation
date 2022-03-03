@@ -58,8 +58,20 @@ Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
 |`PAGE_{page.id}_CHANNEL_NAME`|`wbaichat`|string|Channel type|`channelName`|`wbaichat`, `botservice`, `facebook`, `api`, `vocalls`|
 |`PAGE_{page.id}_CLIENT_ID`||string|Client identification, when the channel is connected behind messaging service|`clientId`||
 |`PAGE_{page.id}_CLIENT_SECRET`||string|Client secret, when the channel is connected behind messaging service|`clientSecret`||
-|`PAGE_{page.id}_START_ACTION_PAYLOAD`||string|Postback payload|`startActionPayload`|*supported by botservice, and vocalls*|
+|`PAGE_{page.id}_START_ACTION_PAYLOAD`||string|Postback payload|`startActionPayload`|*supported by botservice, and vocalls (inbound call)*|
 |`PAGE_{page.id}_LOAD_USER_TO_CONTEXT_PROP`||string|If chanel provides user data, it's loaded into this prop|`loadUserToContextProp`|*supported by botservice, and vocalls*|
+|`PAGE_{page.id}_API_URL`||string|API url for services like vocalls, facebook etc.|`apiUrl`|`https://vocalls.cz/calls`|
+|`PAGE_{page.id}_TOKEN`||string|Token for API|`token`||
+|`PAGE_{page.id}_DEFAULT_VOICE_CONTROL_LANGUAGE`|`cs-CZ`|string|Voice language|`defaultVoiceControl.language`||
+|`PAGE_{page.id}_DEFAULT_VOICE_CONTROL_VOICE`||string|Voice type|`defaultVoiceControl.voice`|`cs-CZ-AntoninNeural`|
+|`PAGE_{page.id}_DEFAULT_VOICE_CONTROL_SPEED`|`1`|number|Voice speed|`defaultVoiceControl.speed`|`0-2` ! Google TTS doesn't support values lower than 0.5|
+|`PAGE_{page.id}_DEFAULT_VOICE_CONTROL_PITCH`|`1`|number|Voice pitch|`defaultVoiceControl.pitch`|`0-2` ! Google TTS doesn't support values lower than 0.5|
+|`PAGE_{page.id}_DEFAULT_VOICE_CONTROL_VOLUME`|`1`|number|Voice volume|`defaultVoiceControl.volume`|`0-2` ! Google TTS doesn't support values lower than 0.5|
+|`PAGE_{page.id}_CALL_ACTION_PAYLOADS_OUTBOUND`||string|Outbound call payload|`callActionPayloads.outbound`|Bot is calling to someone|
+|`PAGE_{page.id}_CALL_ACTION_PAYLOADS_DECLINED`||string|Declined call payload|`callActionPayloads.declined`|User didn't accept the call|
+|`PAGE_{page.id}_CALL_ACTION_PAYLOADS_HUNGUP`||string|Call hungup payload|`callActionPayloads.hungup`|User hung up the call|
+|`PAGE_{page.id}_CALL_ACTION_PAYLOADS_DIAL`||string|Dial payload **action**|`callActionPayloads.dial`|`dial` needs payload data `data.to = PHONE_NUMBER`|
+|`PAGE_{page.id}_CALL_ACTION_PAYLOADS_HANGUP`||string|Hangup payload|`callActionPayloads.hangup`|Will hangup the call|
 
 **Web chat options**
 
@@ -79,6 +91,7 @@ Following configuration is used, when no/empty `JSON_CONFIGURATION` is provided.
 |`PAGE_{page.id}_OAUTH_STORE_USER_ID_AT_CONTEXT_PROP`|`userId`|string|OAuth - stores user ID after successful authorization at a thread context variable|`oauth.storeUserIdAtContextProp`||
 |`PAGE_{page.id}_OAUTH_STORE_AUTH_RESULT_AT_CONTEXT_PROP`|`auth`|string|OAuth - stores contents of ID token at a thread context variable|`oauth.storeAuthResultAtContextProp`||
 |`PAGE_{page.id}_OAUTH_BIND_THREAD_TO_SUBJECT`||boolean|OAuth - each user ID will have a single conversation|`oauth.bindThreadToSubject`||
+
 
 ### App Configuration
 
